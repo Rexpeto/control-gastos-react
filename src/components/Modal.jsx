@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Mensaje from './Mensaje';
 import Cerrar from '../assets/img/cerrar.svg';
 
-const Modal = ({setModal, animarModal, setAnimarModal}) => {
+const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
 
     //? State de formulario
     const [nombre, setNombre] = useState('');
@@ -29,6 +29,8 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
             setMensaje('Todos los campos son obligatorios!!');
             return;
         }
+
+        guardarGasto({nombre, cantidad, categoria});
     }
 
     return ( 
