@@ -1,7 +1,14 @@
+import { useState } from 'react';
 import Cerrar from '../assets/img/cerrar.svg';
 
 const Modal = ({setModal, animarModal, setAnimarModal}) => {
 
+    //? State de formulario
+    const [nombre, setNombre] = useState('');
+    const [cantidad, setCantidad] = useState('');
+    const [categoria, setCategoria] = useState('');
+
+    //? Handle de ocultar modal
     const ocultarModal = () => {
         setAnimarModal(false);
         
@@ -24,17 +31,17 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
 
                 <div className='campo'>
                     <label htmlFor="nombre">Nombre Gasto</label>
-                    <input type="text" id='nombre' name='nombre' placeholder='Coloque el nombre del gasto' autoComplete='off'/>
+                    <input type="text" id='nombre' name='nombre' placeholder='Coloque el nombre del gasto' autoComplete='off' value={nombre} onChange={e => setNombre(e.target.value)}/>
                 </div>
 
                 <div className='campo'>
                     <label htmlFor="cantidad">Cantidad</label>
-                    <input type="number" id='cantidad' name='cantidad' placeholder='Coloque la cantidad' autoComplete='off'/>
+                    <input type="number" id='cantidad' name='cantidad' placeholder='Coloque la cantidad' autoComplete='off' value={cantidad} onChange={e => setCantidad(Number(e.target.value))}/>
                 </div>
 
                 <div className='campo'>
                     <label htmlFor="categoria">Categoria</label>
-                    <select name="categoria" id="categoria">
+                    <select name="categoria" id="categoria" onChange={e => setCategoria(e.target.value)}>
                         <option value="">-- Seleccione --</option>
                         <option value="ahorro">Ahorro</option>
                         <option value="comida">Comida</option>
