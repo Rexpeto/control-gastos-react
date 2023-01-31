@@ -36,7 +36,7 @@ function App() {
     }
 
     return (
-        <>
+        <div className={modal ? 'fijar' : ''}>
             <Header 
                 presupuesto={presupuesto}
                 setPresupuesto={setPresupuesto}
@@ -68,7 +68,7 @@ function App() {
                     guardarGasto={guardarGasto}
                 />
             )}
-        </>
+        </div>
     );
 }
 
