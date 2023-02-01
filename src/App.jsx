@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import ListadoGastos from "./components/ListadoGastos";
@@ -11,9 +11,23 @@ function App() {
     const [isValidPresupuesto, setIsvalidPresupuesto] = useState(false);
     const [modal, setModal] = useState(false);
     const [animarModal, setAnimarModal] = useState(false);
+    const [gastoEditar, setGastoEditar] = useState({});
+
+    useEffect(() => {
+        if(Object.keys(gastoEditar).length > 0) {
+            setModal(true);
+        
+
+            setTimeout(() => {
+                setAnimarModal(true);
+            }, 200);
+        }
+
+    }, [gastoEditar]);
 
     const handleNuevoGasto = () => {
         setModal(true);
+        setGastoEditar({});
 
         setTimeout(() => {
             setAnimarModal(true);
@@ -23,10 +37,16 @@ function App() {
     //? Nuevo gasto
     const guardarGasto = gasto => {
         
-        gasto.id = generarId();
-        gasto.fecha = Date.now();
-        
-        setGastos([...gastos, gasto]);
+        if(gasto.id) {
+            const gastosActualizado = gastos.map(gastoState => gastoState.id === gasto.id ? gasto : gastoState);
+
+            setGastos(gastosActualizado);
+        } else {
+            gasto.id = generarId();
+            gasto.fecha = Date.now();
+            
+            setGastos([...gastos, gasto]);
+        }
 
         setAnimarModal(false);
         
@@ -49,6 +69,7 @@ function App() {
                     <main>
                         <ListadoGastos 
                             gastos={gastos}
+                            setGastoEditar={setGastoEditar}
                         />
                     </main>
                     <div className="nuevo-gasto">
@@ -67,6 +88,7 @@ function App() {
                     animarModal={animarModal}
                     setAnimarModal={setAnimarModal}
                     guardarGasto={guardarGasto}
+                    gastoEditar={gastoEditar}
                 />
             )}
         </div>
