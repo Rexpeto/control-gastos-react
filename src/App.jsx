@@ -7,7 +7,9 @@ import IconoNuevoGasto from './assets/img/nuevo-gasto.svg'
 
 function App() {
     const [gastos, setGastos] = useState([]);
-    const [presupuesto, setPresupuesto] = useState(0);
+    const [presupuesto, setPresupuesto] = useState(
+        Number(localStorage.getItem('presupuesto')) ?? 0
+    );
     const [isValidPresupuesto, setIsvalidPresupuesto] = useState(false);
     const [modal, setModal] = useState(false);
     const [animarModal, setAnimarModal] = useState(false);
@@ -24,6 +26,18 @@ function App() {
         }
 
     }, [gastoEditar]);
+
+    useEffect(() => {
+        localStorage.setItem('presupuesto', presupuesto ?? 0);
+    }, [presupuesto]);
+
+    useEffect(() => {
+        const presupuestoLS = Number(localStorage.getItem('presupuesto') ?? 0);
+
+        if(presupuesto > 0) {
+            setIsvalidPresupuesto(true);
+        }
+    }, []);
 
     const handleNuevoGasto = () => {
         setModal(true);
