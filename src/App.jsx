@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import ListadoGastos from "./components/ListadoGastos";
+import Filtros from "./components/Filtros";
 import { generarId } from "./helpers";
 import IconoNuevoGasto from './assets/img/nuevo-gasto.svg'
 
@@ -16,6 +17,7 @@ function App() {
     const [modal, setModal] = useState(false);
     const [animarModal, setAnimarModal] = useState(false);
     const [gastoEditar, setGastoEditar] = useState({});
+    const [filtro, setFiltro] = useState('');
 
     useEffect(() => {
         if(Object.keys(gastoEditar).length > 0) {
@@ -44,6 +46,12 @@ function App() {
             setIsvalidPresupuesto(true);
         }
     }, []);
+
+    useEffect(() => {
+        if(filtro) {
+            console.log('filtrando')
+        }
+    }, [filtro]);
 
     const handleNuevoGasto = () => {
         setModal(true);
@@ -95,6 +103,10 @@ function App() {
             {isValidPresupuesto && (
                 <>
                     <main>
+                        <Filtros
+                            setFiltro={setFiltro}
+                            filtro={filtro}
+                        />
                         <ListadoGastos 
                             gastos={gastos}
                             setGastoEditar={setGastoEditar}
