@@ -18,7 +18,6 @@ function App() {
     const [animarModal, setAnimarModal] = useState(false);
     const [gastoEditar, setGastoEditar] = useState({});
     const [filtro, setFiltro] = useState('');
-    const [gastosFiltrados, setGastosFiltrados] = useState([]);
 
     useEffect(() => {
         if(Object.keys(gastoEditar).length > 0) {
@@ -50,9 +49,7 @@ function App() {
 
     useEffect(() => {
         if(filtro) {
-            const gastosFiltrados = gastos.filter(gasto => gasto.categoria === filtro);
-
-            setGastosFiltrados(gastosFiltrados);
+            console.log('filtrando')
         }
     }, [filtro]);
 
@@ -98,6 +95,7 @@ function App() {
         <div className={modal ? 'fijar' : ''}>
             <Header 
                 gastos={gastos}
+                setGastos={setGastos}
                 presupuesto={presupuesto}
                 setPresupuesto={setPresupuesto}
                 setIsvalidPresupuesto={setIsvalidPresupuesto}
@@ -114,8 +112,6 @@ function App() {
                             gastos={gastos}
                             setGastoEditar={setGastoEditar}
                             eliminarGasto={eliminarGasto}
-                            filtro={filtro}
-                            gastosFiltrados={gastosFiltrados}
                         />
                     </main>
                     <div className="nuevo-gasto">
